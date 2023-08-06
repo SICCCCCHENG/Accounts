@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>添加记录</title>
+  <link href="/css/bootstrap.css" rel="stylesheet" />
+  <link href="/css/bootstrap-datepicker.css" rel="stylesheet">
+  <style>
+    .create_header {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+        <div class='create_header'>
+          <h2>添加记录</h2>
+          <a class="account_logout" href="/logout">
+            <h3 class="btn btn-primary">退出登陆</h3>
+          </a>
+        </div>
+        <hr />
+        <form method="post" action="/create">
+          <div class="form-group">
+            <label for="item">事项</label>
+            <input type="text" class="form-control" id="item" name="title" />
+          </div>
+          <div class="form-group">
+            <label for="time">发生时间</label>
+            <input type="text" class="form-control" id="time" name="time" />
+          </div>
+          <div class="form-group">
+            <label for="type">类型</label>
+            <select class="form-control" id="type" name="type">
+              <option value="-1">支出</option>
+              <option value="1" selected>收入</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="account">金额</label>
+            <input type="text" class="form-control" id="account" name="amount" />
+          </div>
+
+          <div class="form-group">
+            <label for="remarks">备注</label>
+            <textarea name="remarks" class="form-control" id="remarks"></textarea>
+          </div>
+          <hr>
+          <button type="submit" class="btn btn-primary btn-block">添加</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/bootstrap-datepicker.min.js"></script>
+  <script src="/js/bootstrap-datepicker.zh-CN.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+<script>
+  const logoutBtn = document.querySelector(".account_logout")
+
+  logoutBtn.onclick = function (e) {
+    if (confirm('您确定要退出登陆吗')) {
+      return true
+    } else (
+      e.preventDefault()
+    )
+  }
+</script>
+
+</html>

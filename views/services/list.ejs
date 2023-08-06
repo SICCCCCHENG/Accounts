@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+  <style>
+    label {
+      font-weight: normal;
+    }
+
+    .panel-body .glyphicon-remove {
+      display: none;
+    }
+
+    .panel-body:hover .glyphicon-remove {
+      display: inline-block
+    }
+
+    .account_header{
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+        <div class="account_header">
+          <h2>记账本</h2>
+          <a class="text-right" href="/create">
+            <h3 class="btn btn-primary">添加新账单</h3>
+          </a>
+          <a class="account_logout" href="/logout">
+            <h3 class="btn btn-primary">退出登陆</h3>
+          </a>
+        </div>
+        <hr />
+        <div class="accounts">
+          <% data.forEach(item => { %>
+          <div class='panel <%= item.type === 1 ? 'panel-success' : 'panel-danger' %>'>
+            <div class="panel-heading"><%= moment(item.time).format('YYYY-MM-DD') %></div>
+            <div class="panel-body">
+              <div class="col-xs-6"><%= item.title %></div>
+              <div class="col-xs-2 text-center">
+                <span class="label <%= item.type === 1 ? "label-success" : "label-warning" %>"><%= item.type === 1 ? '收入' : '支出' %></span>
+              </div>
+              <div class="col-xs-2 text-right"><%= item.amount %>元</div>
+              <div class="col-xs-2 text-right">
+                <a class="deleteBtn" href="/account/<%= item._id %>"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+const deleteBtns = document.querySelectorAll('.deleteBtn')
+const logoutBtn = document.querySelector(".account_logout")
+
+logoutBtn.onclick = function(e){
+  if(confirm('您确定要退出登陆吗')){
+    return true
+  }else(
+    e.preventDefault()
+  )
+}
+
+deleteBtns.forEach(item => {
+  item.onclick = function(e){
+    if(confirm('您确定要删除吗?')){
+      return true
+    }else{
+      e.preventDefault()
+    }
+  }
+})
+</script>
+
+</html>
